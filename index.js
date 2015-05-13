@@ -8,8 +8,8 @@ connection.once('open', function callback () {
 
 
 module.exports = {
-  app: require('./models/app'),
-  experiment: require('./models/experiment'),
+  app: require('./models/newApp'),
+  testHelpers: require('./test/helpers.test.js'),
   init: function(MONGO_URL) {
     mongoose.connect(MONGO_URL);
 

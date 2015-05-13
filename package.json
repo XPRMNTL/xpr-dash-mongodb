@@ -1,17 +1,23 @@
 {
   "name": "xpr-dash-mongodb",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "MongoDB Datastore plugin for xpr-dashboard",
   "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test `pwd`/node_modules/.bin/mocha --reporter nyan test/server/**/*"
   },
   "author": "Dan Crews",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^2.9.25",
-    "debug": "^2.1.3",
+    "debug": "^2.2.0",
     "mongoose": "^4.0.2",
-    "node-uuid": "^1.4.3"
+    "node-uuid": "^1.4.3",
+    "xpr-util-validation": "^1.0.0"
+  },
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4",
+    "xpr-dash-db-interface": "^1.2.0"
   }
 }

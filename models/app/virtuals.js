@@ -18,10 +18,10 @@
         if (this._serialized) {
           serializedData = JSON.parse(this._serialized);
         } else {
-          console.warn("No '_serialized' field found for app '%s'.", this.name);
+          console.warn('No "_serialized" field found for app "%s".', this.name || this.github_repo);
         }
       } catch (e) {
-        console.warn("Unable to parse '_serialized' field into JSON for app '%s'.", this.name);
+        console.warn('Unable to parse "_serialized" field into JSON for app "%s".', this.name);
       }
       return serializedData;
     });
