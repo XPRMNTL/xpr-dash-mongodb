@@ -22,47 +22,52 @@ function generateSerialized() {
     , experiments = serialized.experiments = {}
     , envs = serialized.envs;
 
-  this.experiments.map(function(item) {
-    var references = item.references
-      , name = item.name
-      , ref, val;
+  this.experiments
+    .filter(function(item) {
+      // filter out archived items
+      return item.archived !== true;
+    })
+    .map(function(item) {
+      var references = item.references
+        , name = item.name
+        , ref, val;
 
-    experiments[name] = item.value;
+      experiments[name] = item.value;
 
-    if (! references) return;
+      if (! references) return;
 
-    // If the refFlag is set, overwrite it or nothing.
-    // if (refFlag) {
-    //   val = references[refFlag];
+      // If the refFlag is set, overwrite it or nothing.
+      // if (refFlag) {
+      //   val = references[refFlag];
 
-    //   // If there was no override, just leave it as is.
-    //   if (undefined === val) return;
+      //   // If there was no override, just leave it as is.
+      //   if (undefined === val) return;
 
-    //   // Set Groups list
-    //   if (typeof val === 'object' && typeof val.length === 'number')  {
-    //     return (experiments[name] = val.map(cleanGroupList));
-    //   }
+      //   // Set Groups list
+      //   if (typeof val === 'object' && typeof val.length === 'number')  {
+      //     return (experiments[name] = val.map(cleanGroupList));
+      //   }
 
-    //   // Set the booleans
-    //   return (experiments[name] = val);
-    // }
+      //   // Set the booleans
+      //   return (experiments[name] = val);
+      // }
 
-    for (ref in references) {
-      if (references.hasOwnProperty(ref)) {
-        if (envs && (! envs[ref])) envs[ref] = {};
-        val = references[ref];
+      for (ref in references) {
+        if (references.hasOwnProperty(ref)) {
+          if (envs && (! envs[ref])) envs[ref] = {};
+          val = references[ref];
 
-        // Sets Groups list
-        if (typeof val === 'object' && typeof val.length === 'number') {
-          envs[ref][name] = val.map(cleanGroupList);
-          continue;
+          // Sets Groups list
+          if (typeof val === 'object' && typeof val.length === 'number') {
+            envs[ref][name] = val.map(cleanGroupList);
+            continue;
+          }
+
+          // Set the booleans
+          envs[ref][name] = val;
         }
-
-        // Set the booleans
-        envs[ref][name] = val;
       }
-    }
-  });
+    });
 
   this._serialized = JSON.stringify(serialized);
 }

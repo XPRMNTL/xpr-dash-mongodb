@@ -203,9 +203,7 @@ App.updateExperiment = function(id, data, cb) {
     AppModel
       .findOneAndUpdate(
         { 'experiments._id': id },
-        {
-          $set: data
-        },
+        data,  // $set doesn't handle adding new fields, like archived needed
         { new: true }
       )
       .exec(function(err, doc) {
